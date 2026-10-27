@@ -1,5 +1,9 @@
 # BemDoar - Frontend
 
+
+## Sistema de gestão organizacional social 
+O BemDoar é um sistema de gestão dedicado a uma única organização social, desenvolvido em parceria real com o clube do idoso Nina Cruz (Gama-DF)
+O objetivo é organizar, em um unico sistema, as informaçoes, necessidades, doações sociais da instituiçoes 
 React 18 + Vite + React Router. JavaScript puro (sem TypeScript) e CSS puro.
 
 ## Rodar
