@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { api } from '../../servicos/api'
 import Icone from '../../componentes/Icone'
 
@@ -36,7 +37,11 @@ export default function MinhasDoacoesPage() {
       <div className="cartao vazio">Voce ainda nao registrou nenhuma doacao.</div> : filtradas.length === 0 ? <div className="estado-vazio compacto"><Icone nome="relogio" tamanho={32}/><h2>Nenhuma doacao nesta etapa</h2><p>Quando uma doacao mudar de situacao, ela aparecera aqui.</p></div> :
       <div className="grade-doacoes">{filtradas.map(doacao => <article className="cartao cartao-doacao" key={doacao.id}>
         <div className="linha-cartao"><div className="titulo-com-icone"><span><Icone nome="caixa" /></span><h2>{doacao.item}</h2></div><span className={`etiqueta situacao-${doacao.situacao.toLowerCase()}`}>{doacao.situacao.replaceAll('_', ' ')}</span></div>
-        <dl className="detalhes-doacao"><div><dt>Quantidade</dt><dd>{doacao.quantidade}</dd></div><div><dt>Destino</dt><dd>{doacao.necessidadeTitulo || doacao.campanhaTitulo}</dd></div><div><dt>Entrega</dt><dd>{doacao.formaEntrega.replaceAll('_', ' ')}</dd></div></dl>
+        <p><strong>Protocolo: {doacao.protocolo}</strong></p>
+        <dl className="detalhes-doacao"><div><dt>Prometido</dt><dd>{doacao.quantidadePrometida}</dd></div><div><dt>Efetivamente recebido</dt><dd>{doacao.quantidadeRecebida ?? "Ainda não recebido"}</dd></div><div><dt>Destino</dt><dd>{doacao.necessidadeTitulo || doacao.campanhaTitulo}</dd></div><div><dt>Entrega</dt><dd>{doacao.formaEntrega.replaceAll('_', ' ')}</dd></div></dl>
+        {doacao.situacao === "PENDENTE" && <p className="texto-apoio">Aguardando análise até {new Date(doacao.prazoAnalise).toLocaleString("pt-BR")}</p>}
+        {doacao.situacao === "CONFIRMADA" && <p className="texto-apoio">Entrega até {new Date(doacao.prazoEntrega).toLocaleString("pt-BR")}</p>}
+        <Link className="botao" to={`/minhas-doacoes/${doacao.id}`}>Ver detalhes</Link>
         {doacao.motivoCancelamento && <p className="texto-apoio">Motivo: {doacao.motivoCancelamento}</p>}
         {['PENDENTE', 'CONFIRMADA'].includes(doacao.situacao) && <button className="botao perigo botao-bloco-mobile" onClick={() => cancelar(doacao.id)}>Cancelar doacao</button>}
       </article>)}</div>}

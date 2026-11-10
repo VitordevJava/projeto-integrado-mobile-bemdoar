@@ -15,25 +15,10 @@ import CategoriaFormPage from './paginas/categorias/CategoriaFormPage'
 import DoacaoFormPage from './paginas/doacoes/DoacaoFormPage'
 import MinhasDoacoesPage from './paginas/doacoes/MinhasDoacoesPage'
 import DoacaoAdminPage from './paginas/doacoes/DoacaoAdminPage'
-import TransparenciaPage from './paginas/transparencia/TransparenciaPage'
+import DoacaoDetalhePage from './paginas/doacoes/DoacaoDetalhePage'
 import RecuperarSenhaPage from './paginas/RecuperarSenhaPage'
 import NecessidadeDetalhePage from './paginas/necessidades/NecessidadeDetalhePage'
 
-/**
- * ====================================================================
- * MAPA DE ENDERECOS DO SITE.
- *
- * Cada frente adiciona as SUAS rotas na secao marcada com o seu nome.
- * NAO mexa nas rotas das outras frentes -> evita conflito de merge.
- *
- * Como funciona uma linha:
- *   <Route path="/campanhas" element={<CampanhaListaPage />} />
- *          ^ endereco no navegador     ^ componente que aparece
- *
- * Se a tela e so para administrador, embrulhe assim:
- *   element={<RotaProtegida somenteAdmin><MinhaTela /></RotaProtegida>}
- * ====================================================================
- */
 export default function App() {
   return (
     <Layout>
@@ -65,19 +50,9 @@ export default function App() {
 
         {/* ================= FRENTE 1 - DOACOES ================= */}
         <Route path="/doar/necessidade/:id" element={<RotaProtegida><DoacaoFormPage /></RotaProtegida>} />
-        <Route path="/doar/campanha/:id" element={<RotaProtegida><DoacaoFormPage destino="campanha" /></RotaProtegida>} />
         <Route path="/minhas-doacoes" element={<RotaProtegida><MinhasDoacoesPage /></RotaProtegida>} />
+        <Route path="/minhas-doacoes/:id" element={<RotaProtegida><DoacaoDetalhePage /></RotaProtegida>} />
         <Route path="/admin/doacoes" element={<RotaProtegida somenteAdmin><DoacaoAdminPage /></RotaProtegida>} />
-        <Route path="/transparencia" element={<TransparenciaPage />} />
-
-        {/* ================= FRENTE 2 - CAMPANHAS ================= */}
-        {/* adicione suas rotas aqui */}
-
-        {/* ================= FRENTE 3 - VOLUNTARIADO ================= */}
-        {/* adicione suas rotas aqui */}
-
-        {/* ================= FRENTE 4 - ACOES SOCIAIS ================= */}
-        {/* adicione suas rotas aqui */}
 
         {/* endereco que nao existe volta para a home */}
         <Route path="*" element={<Navigate to="/" replace />} />

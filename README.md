@@ -1,39 +1,24 @@
-# BemDoar - Frontend
+# BemDoar — frontend
 
-
-## Sistema de gestão organizacional social 
-O BemDoar é um sistema de gestão dedicado a uma única organização social, desenvolvido em parceria real com o clube do idoso Nina Cruz (Gama-DF)
-O objetivo é organizar, em um unico sistema, as informaçoes, necessidades, doações sociais da instituiçoes 
-React 18 + Vite + React Router. JavaScript puro (sem TypeScript) e CSS puro.
+MVP web em React 18, Vite, React Router, JavaScript e CSS. O nome oficial da instituição parceira está pendente de confirmação pelo PO; os dados iniciais são apenas demonstrativos. O escopo revisado em 04/11/2026 abrange necessidades e doações físicas. Campanhas, voluntariado, ações e painel de transparência ficam fora deste MVP.
 
 ## Rodar
 
-    npm install     (so na primeira vez)
-    npm run dev
+```sh
+npm install
+npm run dev
+```
 
-Abre em http://localhost:5173
+Abra `http://localhost:5173` com o backend rodando em `http://localhost:8080`. `npm run build` valida a compilação. Login de demonstração: `admin@bemdoar.com` / `admin123` ou `maria@email.com` / `maria123`.
 
-O backend precisa estar rodando em http://localhost:8080 ao mesmo tempo.
+## O que conferir
 
-## Estrutura
+- `/necessidades`: lista e progresso público; necessidade `ATENDIDA` não oferece nova intenção.
+- `/admin/necessidades/nova`: o administrador cadastra necessidade com justificativa. Ao editar, justifica a alteração.
+- `/doar/necessidade/{id}`: doador registra intenção e recebe protocolo. A intenção não altera o progresso.
+- `/minhas-doacoes`: titular acompanha protocolo, quantidade prometida, recebida e prazos.
+- `/admin/doacoes`: administrador pesquisa protocolo, confirma, confere recebimento parcial, corrige ou anula com justificativa e consulta a auditoria.
 
-    src/servicos/api.js      unico arquivo que fala com o backend
-    src/servicos/auth.js     guarda quem esta logado
-    src/componentes/         menu do topo e protecao de rota
-    src/paginas/             uma pasta por modulo
-    src/styles.css           todo o CSS do projeto
-    src/App.jsx              mapa de enderecos (rotas)
+Prazos de três dias para análise e 15 dias para entrega, contados no mesmo horário em `America/Sao_Paulo`. A aprovação é manual. O item físico deve corresponder ao declarado.
 
-## Telas-molde
-
-    src/paginas/categorias/CategoriaListaPage.jsx   tela de lista
-    src/paginas/categorias/CategoriaFormPage.jsx    tela de formulario
-
-Copie estes dois arquivos e troque os nomes. Nao comece do zero.
-
-## Arquivos compartilhados
-
-`src/App.jsx` e `src/componentes/Layout.jsx` sao editados por todos,
-mas cada frente tem a SUA secao marcada com comentario. Mexa so na sua.
-
-<!-- Submissao do Frontend -->
+O código de API fica em `src/servicos/api.js`, autenticação em `src/servicos/auth.js`, rotas em `src/App.jsx` e telas em `src/paginas/`.

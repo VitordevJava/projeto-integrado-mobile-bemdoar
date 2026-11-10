@@ -18,7 +18,7 @@ export default function NecessidadeDetalhePage() {
         <div className="numeros-meta"><div><span>Meta</span><strong>{necessidade.quantidadeNecessaria}</strong><small>unidades</small></div><div><span>Recebido</span><strong>{necessidade.quantidadeRecebida}</strong><small>unidades</small></div></div>
         <div className="barra-progresso barra-grande"><i style={{width: Math.min(necessidade.percentual,100)+'%'}}/></div>
         <span className="percentual-detalhe">{necessidade.percentual}% da meta alcançada</span>
-        {necessidade.situacao !== 'ENCERRADA' && <Link className="botao destaque botao-bloco" to={`/doar/necessidade/${necessidade.id}`}><Icone nome="coracao" tamanho={19}/>Quero doar</Link>}
+        {!['ATENDIDA', 'ENCERRADA'].includes(necessidade.situacao) && <Link className="botao destaque botao-bloco" to={`/doar/necessidade/${necessidade.id}`}><Icone nome="coracao" tamanho={19}/>Quero doar</Link>}
       </div>
     </div>
   </section>
