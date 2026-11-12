@@ -18,7 +18,7 @@ export function apagarToken() {
 }
 
 async function requisicao(metodo, caminho, corpo) {
-  if (MODO_DEMONSTRACAO) return respostaDemonstracao(metodo, caminho)
+  if (MODO_DEMONSTRACAO) return respostaDemonstracao(metodo, caminho, corpo)
   const cabecalhos = { 'Content-Type': 'application/json' }
 
   const token = lerToken()

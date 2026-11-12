@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { api } from '../servicos/api'
+import { api, MODO_DEMONSTRACAO } from '../servicos/api'
 import Brand from '../componentes/Brand'
 
 /** RF01 - cadastro publico. Sempre cria perfil USUARIO. */
@@ -38,6 +38,7 @@ export default function CadastroPage() {
         <Brand />
         <div className="auth-intro"><p className="sobrelinha">Comece por aqui</p><h1>Crie sua conta</h1><p>Leva menos de dois minutos para começar a ajudar.</p></div>
 
+        {MODO_DEMONSTRACAO && <div className="alerta ok">Cadastro fictício: você poderá entrar depois com qualquer senha. Os dados ficam apenas neste navegador.</div>}
         {erro && <div className="alerta erro">{erro}</div>}
 
         <form onSubmit={aoEnviar} className="auth-form auth-form-grid">
@@ -47,11 +48,11 @@ export default function CadastroPage() {
           </div>
           <div className="campo">
             <label htmlFor="email">E-mail *</label>
-            <input id="email" name="email" type="email" autoComplete="email" required placeholder="voce@email.com" value={formulario.email} onChange={aoDigitar} />
+            <input id="email" name="email" type={MODO_DEMONSTRACAO ? "text" : "email"} autoComplete="email" required placeholder="voce@email.com" value={formulario.email} onChange={aoDigitar} />
           </div>
           <div className="campo">
-            <label htmlFor="senha">Senha * (minimo 8 caracteres)</label>
-            <input id="senha" name="senha" type="password" autoComplete="new-password" minLength="8" required placeholder="Minimo de 8 caracteres" value={formulario.senha} onChange={aoDigitar} />
+            <label htmlFor="senha">Senha * {MODO_DEMONSTRACAO ? '(qualquer texto)' : '(mínimo de 8 caracteres)'}</label>
+            <input id="senha" name="senha" type="password" autoComplete="new-password" minLength={MODO_DEMONSTRACAO ? 1 : 8} required placeholder={MODO_DEMONSTRACAO ? 'Qualquer senha para demonstração' : 'Mínimo de 8 caracteres'} value={formulario.senha} onChange={aoDigitar} />
           </div>
           <div className="campo">
             <label htmlFor="confirmacaoSenha">Confirmar senha *</label>
@@ -63,15 +64,15 @@ export default function CadastroPage() {
             <input id="telefone" name="telefone" type="tel" autoComplete="tel" placeholder="(00) 00000-0000" value={formulario.telefone} onChange={aoDigitar} />
           </div>
           <div className="campo">
-            <label htmlFor="dataNascimento">Data de nascimento *</label>
-            <input id="dataNascimento" name="dataNascimento" type="date" required
+            <label htmlFor="dataNascimento">Data de nascimento {MODO_DEMONSTRACAO ? '(opcional)' : '*'}</label>
+            <input id="dataNascimento" name="dataNascimento" type="date" required={!MODO_DEMONSTRACAO}
                    value={formulario.dataNascimento} onChange={aoDigitar} />
           </div>
           <div className="campo campo-termos">
             <label>
-              <input type="checkbox" name="aceiteTermos" required checked={formulario.aceiteTermos}
+              <input type="checkbox" name="aceiteTermos" required={!MODO_DEMONSTRACAO} checked={formulario.aceiteTermos}
                      onChange={aoDigitar} />
-              Aceito os Termos de Uso e a Politica de Privacidade *
+              Aceito os Termos de Uso e a Politica de Privacidade {MODO_DEMONSTRACAO ? '(opcional nesta demonstração)' : '*'}
             </label>
           </div>
 

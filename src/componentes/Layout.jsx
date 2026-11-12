@@ -4,6 +4,7 @@ import Brand from './Brand'
 import BottomNav from './BottomNav'
 import Icone from './Icone'
 import { MODO_DEMONSTRACAO } from '../servicos/api'
+import { reiniciarDemonstracao } from '../servicos/dadosDemonstracao'
 
 export default function Layout({ children }) {
   const usuario = usuarioLogado()
@@ -17,7 +18,7 @@ export default function Layout({ children }) {
     navegar('/login')
   }
 
-  if (paginaAutenticacao) return <main className="auth-layout">{MODO_DEMONSTRACAO && <div className="aviso-demo" role="status">Prévia visual: login e doações indisponíveis.</div>}{children}</main>
+  if (paginaAutenticacao) return <main className="auth-layout">{MODO_DEMONSTRACAO && <div className="aviso-demo" role="status">Demonstração: login e operações são fictícios e ficam neste navegador.</div>}{children}</main>
 
   return (
     <>
@@ -53,7 +54,7 @@ export default function Layout({ children }) {
         </div>
       </header>
 
-      {MODO_DEMONSTRACAO && <div className="aviso-demo" role="status">Prévia visual do BemDoar. Os dados são fictícios; login e doações ficam indisponíveis até a publicação da API.</div>}
+      {MODO_DEMONSTRACAO && <div className="aviso-demo" role="status">Demonstração do BemDoar: login, cadastros e doações são fictícios e ficam somente neste navegador. <button type="button" onClick={() => { reiniciarDemonstracao(); window.location.reload() }}>Reiniciar dados</button></div>}
       <main className="container">{children}</main>
       <BottomNav />
     </>

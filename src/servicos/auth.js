@@ -6,8 +6,8 @@ import { api, salvarToken, apagarToken, lerToken } from './api'
 
 const CHAVE_USUARIO = 'bemdoar_usuario'
 
-export async function entrar(email, senha) {
-  const resposta = await api.post('/api/auth/login', { email, senha })
+export async function entrar(email, senha, perfilDemo) {
+  const resposta = await api.post('/api/auth/login', { email, senha, perfilDemo })
   salvarToken(resposta.token)
   localStorage.setItem(CHAVE_USUARIO, JSON.stringify(resposta))
   return resposta

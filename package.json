@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:firebase": "vite build --mode firebase",
+    "test:demo": "node scripts/testar-demo.mjs",
     "deploy:firebase": "npm run build:firebase && npx firebase-tools deploy --only hosting --project bem-doar-projeto-integrador",
     "preview": "vite preview"
   },
