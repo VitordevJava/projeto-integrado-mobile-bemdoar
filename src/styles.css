@@ -267,3 +267,5 @@ p { line-height: 1.65; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+.aviso-demo { background: #fff1c7; color: #4b3300; text-align: center; padding: 12px 20px; font-weight: 700; border-bottom: 1px solid #e4c56b; }

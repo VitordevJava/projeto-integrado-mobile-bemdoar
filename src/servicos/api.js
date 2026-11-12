@@ -1,20 +1,7 @@
-// ============================================================
-// UNICO ARQUIVO QUE FALA COM O BACKEND.
-//
-// Nenhuma tela usa fetch() diretamente. Todas usam api.get,
-// api.post, api.put, api.patch ou api.remove daqui.
-//
-// Isso ja resolve 3 coisas para voce automaticamente:
-//   1. monta a URL completa
-//   2. manda o token do login no cabecalho
-//   3. transforma erro do backend em mensagem legivel
-//
-// NAO E NECESSARIO ALTERAR ESTE ARQUIVO.
-// ============================================================
+import { respostaDemonstracao } from './dadosDemonstracao'
 
-// Se a porta 8080 estiver ocupada na sua maquina, troque aqui
-// E no application.properties do backend. Tem que ser a MESMA.
-export const URL_API = 'http://localhost:8080'
+export const MODO_DEMONSTRACAO = import.meta.env.VITE_MODO_DEMONSTRACAO === 'true'
+export const URL_API = import.meta.env.VITE_API_URL || 'http://localhost:8080'
 
 const CHAVE_TOKEN = 'bemdoar_token'
 
@@ -31,6 +18,7 @@ export function apagarToken() {
 }
 
 async function requisicao(metodo, caminho, corpo) {
+  if (MODO_DEMONSTRACAO) return respostaDemonstracao(metodo, caminho)
   const cabecalhos = { 'Content-Type': 'application/json' }
 
   const token = lerToken()
